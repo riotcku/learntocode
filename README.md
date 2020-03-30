@@ -12,7 +12,7 @@ Excited to have you.
 - [Format](#format)
 - [Resources](#resources)
 - [Lessons](#lessons)
-  * [Lesson One: basics](#lesson-one-basics)
+  * [Lesson One: basics](#lesson-1-basics)
 
 ### Introduction
 

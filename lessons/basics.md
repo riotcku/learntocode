@@ -39,7 +39,13 @@ Recommend you open up codepen.io and type stuff along. Here is how a javascript 
 
 `let newVariable = 10;`
 
-lets deconstruct above statement. `let` is a way to tell javascript code that I am declaring a NEW variable. There's 3 types of variables, `let` `var` and `const`, but let's just worry about `let` for now. After telling javascript you are declaring a variable with `let`, you can name it whatever you want. In our example, I named it `newVariable` to make it obvious I'm naming it. It can be named almost any sequence of alphanumeric characters. `newvariable` would've been a fine name, but I capitalized the letter to make it easier to read the second word. Then, we *assign* a value to `newVariable` using `=` followed by a value, which in this case is `10`. Then we use `;` to tell javascript this is one line of code.
+lets deconstruct above statement. `let` is a way to tell javascript code that I am declaring a NEW variable. There's 3 types of variables, `let` `var` and `const`, but let's just worry about `let` for now. After telling javascript you are declaring a variable with `let`, you can name it whatever you want. In our example, I named it `newVariable` to make it obvious I'm naming it.
+
+A JavaScript variable name must start with a letter, underscore (_), or dollar sign ($). Subsequent characters can also be digits (0–9).
+
+Because JavaScript is case sensitive, letters include the characters "A" through "Z" (uppercase) as well as "a" through "z" (lowercase). `newvariable` would've been a fine name, but I capitalized the second letter to make it easier to read the second word. It must all be one word, having space in between does not work.
+
+Then, we *assign* a value to `newVariable` using `=` followed by a value, which in this case is `10`. Then we use `;` to tell javascript this is one line of code.
 
 All that combined results in a new variable named `newVariable` with the value `10` that we can reference later in code. Let's declare another variable.
 
