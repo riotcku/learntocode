@@ -31,3 +31,9 @@ https://code.visualstudio.com/docs/setup/mac
 Follow instructions upto the `Hello World` section, do not progress to `An Express Application`.
 
 https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
+
+### Chromebook OS
+
+I do not have Chrome OS, but I hope this below instructions work well for you. Let me know if it doesn't.
+
+https://medium.com/@jacoboakley/web-development-with-a-chromebook-installing-nodejs-4e358b82a31b
