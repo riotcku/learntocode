@@ -12,6 +12,7 @@ This section of lessons will cover the first building blocks of javascript knowl
   * [Lesson One: Variables and Types](#lesson-one-variables-and-types)
     + [Variable assignment with let](#variable-assignment-with-let)
     + [console.log() part 1](#consolelog-part-1)
+    + [Intro to Types](#intro-to-types)
 
 ### Why Javascript?
 
@@ -62,7 +63,9 @@ let anotherOne = newVariable;
 newVariable = 5;
 ```
 
-You can re-assign new values to already declared variables. Notice that we don't have a `let` before re-assignment. This is because for per *scope* of code, variable names must be unique. Question: What do you think the value of `anotherOne` became after the re-assignment?
+You can re-assign new values to already declared variables. Notice that we don't have a `let` before re-assignment. This is because for per *scope* of code, variable names must be unique. We'll get to what Scope is later :)
+
+Question: What do you think the value of `anotherOne` became after the re-assignment?
 
 ```
 let newVariable = 10;
@@ -73,7 +76,7 @@ console.log(newVariable) // outputs 5
 console.log(anotherOne) // ?
 ```
 
-anotherOne actually holds the value of... `10`! When you assign a *primitive* type variable to something, it BECOMES that value instead of POINTING to the value. What are *primitive* variables? Again, I'll explain in detail, I got you. But let's go over the crazy `console.log` statement I threw out quick.
+anotherOne actually holds the value of... `10`! When you assign a *primitive* type variable to something, it BECOMES that value instead of POINTING to the value. What are *primitive* variables? Again, I'll explain in detail later, I got you. But let's go over the crazy `console.log` statement I threw out quick.
 
 ### `console.log()` Part 1
 
@@ -94,4 +97,7 @@ console.log(newVariable); // outputs 5
 console.log(anotherOne); // outputs 10
 ```
 
-Above code block will output `10, 10, 5, 10` in your console. This step-by-step approach of logging code values will help you write and understand a javascript code as it increases in value.
+Above code block will output `10, 10, 5, 10` in your console. This step-by-step approach of logging code values will help you write and understand a javascript code as it runs.
+
+### Intro to Types
+
