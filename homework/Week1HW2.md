@@ -4,7 +4,7 @@ This homework assignment is designed to test your understanding of primitive typ
 
 ### Instructions
 
-First, download the [homework javascript file](https://github.com/riotcku/learntocode/blob/master/homework/js/typesHw.js). I suggest you put this in some directory where you'll organize your future homework, as it'll probably get lost in your downloads folder.
+First, download the [homework javascript file](https://github.com/riotcku/learntocode/blob/master/homework/js/typesHw.js). To 'download' just means to have that as a text file, saved as typesHw.js. You can do this by copy pasting everything in that file into a notepad and saving the result as `typesHw.js`. Reach out if that doesn't make sense. I suggest you put this in some directory where you'll organize your future homework, as it'll probably get lost in your downloads folder.
 
 On your VisualStudio Code interface, open the folder which contains the downloaded javascript file. You can do this doing something like File -> Open. On your VSCode Explorer, find the file `typesHw.js` and right click -> Open in Terminal. Here's a picture to see what that looks like.
 
