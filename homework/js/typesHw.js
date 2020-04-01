@@ -12,9 +12,10 @@ const questionMap = {
   'null': 'What primitive type has an incorrect type when `typeof` is used on it? Answer and press enter.\n',
 };
 const testAnswer = {
-  'number': ans => !isNaN(+ans) && ((typeof +ans) === 'number'),
+  'number': ans => ans && !isNaN(+ans) && ((typeof +ans) === 'number'),
   'string': ans => {return ans.length && ((ans[0] === "'"  && ans[ans.length - 1] === "'") || (ans[0] === '"' && ans[ans.length - 1] === '"'))},
   'boolean': ans => ans === 'true' || ans === 'false',
+  'null': ans => ans === 'null',
 }
 let answerMap = {};
 
@@ -48,14 +49,8 @@ const displayResults = () => {
     console.log('\nYour answer was ' + currAns + ' for question: ' + questionMap[type])
     const redFont = "\x1b[31m%s\x1b[0m"
     const greenFont = "\x1b[32m%s\x1b[0m"
-    let isCorrect;
-    if (type === 'null') {
-      isCorrect = currAns === type;
-      console.log(isCorrect ? greenFont : redFont, isCorrect ? 'This was correct.' : 'This was incorrect.')
-    } else {
-      isCorrect = testAnswer[type](currAns);
-      console.log(isCorrect ? greenFont : redFont, isCorrect ? 'This was correct.' : 'This was incorrect.')
-    }
+    const isCorrect = testAnswer[type](currAns);
+    console.log(isCorrect ? greenFont : redFont, isCorrect ? 'This was correct.' : 'This was incorrect.')
     if (isCorrect) numCorrect++;
   });
 
