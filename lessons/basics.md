@@ -101,7 +101,18 @@ Above code block will output `10, 10, 5, 10` in your console. This step-by-step 
 
 ### Primitive Types
 
-So far, we've been assigning number values to all these variables. Let's learn a new command. Type this into your javascript console.
+Primitive value means that when you assign a primitive type value to a variable, it BECOMES that value instead of POINTING to it. We saw an example of how that works earlier when we re-assigned a new value to a variable that has been assigned to another variable. Basically, to show via example again,
+
+```
+let x = 1; // 1 is a number, a primitive type
+let y = x; // y now BECOMES 1. it does not POINT to x, it BECOMES 1
+// so at this point, x === 1, and y === 1.
+
+x = 2; // x is now equal to 2. This does not effect y at all.
+// at this point, x === 2, and y === 1 because numbers are primitive types.
+```
+
+Let's learn a new command. Type this into your javascript console or a new js file you will run.
 
 ```
 let x = 5;
@@ -205,4 +216,3 @@ let nullVar = null;
 console.log(typeof nullVar); // outputs 'object'
 ```
 
-As a reminder, Primitive values means that when you assign a primitive type value to a variable, it BECOMES that value instead of POINTING to it. We saw an example of how that works earlier when we re-assigned
