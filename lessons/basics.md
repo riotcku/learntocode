@@ -12,7 +12,13 @@ This section of lessons will cover the first building blocks of javascript knowl
   * [Lesson One: Variables and Types](#lesson-one-variables-and-types)
     + [Variable assignment with let](#variable-assignment-with-let)
     + [console.log() part 1](#consolelog-part-1)
-    + [Intro to Types](#intro-to-types)
+    + [Primitive Types](#primitive-types)
+      - [String](#string)
+      - [Number](#number)
+      - [Boolean](#boolean)
+      - [undefined](#undefined)
+      - [null](#null)
+
 
 ### Why Javascript?
 
@@ -216,3 +222,148 @@ let nullVar = null;
 console.log(typeof nullVar); // outputs 'object'
 ```
 
+### Lesson Two: Conditionals
+
+We make decisions all the time based on some truth. We may ask, 'should I go for a run?' and decide yes or no based on some factor: 'i will not go run, for it is raining'. This type of decision making based on a condition is expressed in javascript via Conditionals. The most commonly used of which is the `if/else` statement.
+
+#### if else
+
+if ... else looks like this.
+```
+if (condition) {
+  // run code written here, between the { and }, if the 'condition' evaluates to true
+} else {
+  // run code written here if the 'condition' is falsey
+}
+```
+
+Let's break this down.
+1. The first statement `if` tells the javascript engine we are declaring a conditional block.
+2. `condition` is placed inside a parenthesis. Inside this parenthesis will be evaluated by javascript to see if that condition is true or not. For example, maybe you might check if some number is greater than another.
+3. Curly braces. Code inside the first curly braces will run if `condition` is evaluated as true.
+4. `else` followed by curly braces. Code in the `else` block will run if `condition` is evaluated as false.
+
+Let's try writing some actual condition in. In javascript, you can use less than or greater than (`<`, `>`) symbols like in mathematics.
+
+```
+let x = 1;
+
+if (x > 0) {
+  console.log('x is greater than zero.')
+} else {
+  console.log('x is smaller or equal to zero.')
+}
+```
+
+Above code block will output `x is greater than zero`. Note that `else` doesn't need to be there for a conditional statement. Following is perfectly acceptable javascript
+
+```
+let x = 1;
+
+if (x > 0) {
+  console.log('x is greater than zero.');
+}
+
+console.log('hello world.'); // this code will always run, whether x was greater than 0 or not.
+```
+
+You can also use `<=`, `>=` symbols combined to express the condition 'less than or equal to,' or 'greater than equal to'. So in example
+
+```
+let x = 1;
+
+if (x >= 0) {
+  console.log('x is greater than or is zero.')
+} else {
+  console.log('x is smaller than zero, a negative number.')
+}
+```
+
+#### Equality check
+
+Oftentimes, we want to check if some value is equal to another. In javascript, this is done like so:
+
+```
+let y = 1;
+
+if (y === 1) {
+  console.log('y is 1.');
+}
+```
+
+This `===` checks if the left side of the expression is equal to the right. How do you check if it is NOT equal?
+
+```
+let z = 2;
+
+if (z !== 1) {
+  console.log('z is not 1.');
+} else {
+  console.log('z is 1.');
+}
+```
+
+as shown, `!==` is checking is the left side of the expression is NOT equal to the right. The `else` block will only trigger if the condition `(z !== 1)` is false, which must mean it is equal to 1.
+
+What happens if multiple blocks that can be true are chained like this?
+
+```
+let y = 1;
+let z = 2;
+
+if (y === 1) {
+  console.log('y is 1.');
+} else if (z === 2) {
+  console.log('z is 2.');
+} else {
+  console.log('y is not 1. z is not 2.');
+}
+```
+
+Expressions of logic always evaluate in-order of code. So in above example, the first condition block, `y === 1` will evaluate as true. After outputting `y is 1`, the other else blocks are not evaluated because the first `if` condition was met.
+
+#### Javascript value comparisons
+
+So what does it really mean to be a `truthy` condition in javascript? Does a string expression evaluate to a true condition, if used like so?
+```
+let stringVar = 'hello, world';
+
+if (stringVar) {
+  console.log('and hello to you too!');
+}
+```
+The answer is... yes! You will run into this in js again and again; learning whether each value evaluates to `true` if used as a conditional is important to become a proficient javascript developer. Here is the rule:
+
+**Any value that is not `false`, `undefined`, `null`, `0`, `NaN`, or an empty string ('') actually returns true!**
+
+I know that is kind of unintuitive at first, but see this code below.
+```
+let stringVar = 'hello, world';
+let x = -1;
+let y = 0;
+let z;
+
+if (stringVar) {
+  console.log('stringVar is truthy.');
+}
+if (x) {
+  console.log('x is truthy.');
+}
+if (y) {
+  console.log('y is truthy.');
+}
+if (z) {
+  console.log('z is truthy.');
+}
+```
+Above program will output `stringVar is truthy` and `x is truthy`. Yes, negative numbers are truthy, but 0 is not.
+
+Using `typeof` command we learned earlier, we can check for types of a variable before executing some code.
+```
+let stringVar = 'hello, world';
+
+if (typeof stringVar === 'string') {
+  console.log('found a string variable!');
+}
+```
+This is very useful and a commonly used pattern in javascript coding.
