@@ -1,4 +1,4 @@
-# Week 2 Project - Your first javscript code
+# Week 2 Project - Your first javascript code
 
 This homework assignment is designed to see your ability to write basic javascript code from scratch.
 

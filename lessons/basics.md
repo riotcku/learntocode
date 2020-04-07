@@ -18,6 +18,11 @@ This section of lessons will cover the first building blocks of javascript knowl
       - [Boolean](#boolean)
       - [undefined](#undefined)
       - [null](#null)
+  * [Lesson Two: Conditionals](#lesson-two-conditionals)
+    + [if else](#if-else)
+    + [Equality Check](#equality-check)
+    + [Javascript Value comparisons](#javascript-value-comparisons)
+    + [Logical Operators - AND OR and NOT](#logical-operators-and-or-and-not)
 
 
 ### Why Javascript?
@@ -367,3 +372,93 @@ if (typeof stringVar === 'string') {
 }
 ```
 This is very useful and a commonly used pattern in javascript coding.
+
+#### Logical Operators - AND, OR, and NOT
+
+So far we learned to check if something IS. How do we express if something IS AND / OR something? Or, how do we check if something IS NOT something?
+
+In js, we describe above scenarios using what are called **logical operators**. They are named **AND** (`&&`), **OR** (`||`), and **NOT** (`!`). In the next section, we describe each of these operators in terms of logic mathematics, and how javascript chooses to evaluate these operators.
+
+#### AND OR
+
+![logicgatetable](https://arith-matic.com/notebook/img/logic-gates/and-or-logic-gate.jpg)
+
+Above is a representation of a logical gate. This is used in electronic circuits to represent the logic of AND and OR. Say 0 represents `false` and 1 represents `true`. So if our input was A and B, 1 would represent `true` and 0 would represent `false`.
+
+The logical gate AND, when given A and B with binary values of 1 or 0, only output 1 (again, representing `true`) if and only if both A and B are `1`.
+
+The logical gate OR, when given A and B with binary values of 1 or 0, outputs 1 if at least one of A or B is 1, including the case when they are both 1.
+
+#### NOT
+
+NOT gate, in lieu to the binary 0-false and 1-true example above, would simply give you the other binary value from the one given. So if input is 1, it'd become 0. If input was 0, it'd become 1.
+
+These above 3 gates are fundamental building blocks of logic. By chaining these gates together, stuff like stoplights / flashlights with multiple settings are built. Understanding the logical operations and how we abstract each binary value to represent a state is important to learning not only javascript, but all of coding and computer science.
+
+
+#### How this works in javascript
+
+Here's a table of how to express the logic operators in javascript.
+
+Name | Syntax | Description
+--- | --- | --- | ---
+AND | `condition1 && condition2`  | if condition1 is truthy, returns condition2. If condition1 is not truthy, return condition1.
+OR | `condition1 || condition2`  | if condition1 is truthy, returns condition1. If not, return condition2.
+NOT | `!condition`  | returns the boolean `false` if `condition` is truthy. If not, returns `true`.
+
+It may seem the descriptions seem unrelated to the logical tables we went over above. That's why it was important to go over the concept of the logic tables first, then go into how javascript implemented them. The above concept, in the simplest case, each `condition` variables would be just booleans. Let's go over the `AND` operator with the simple case of `boolean` variables.
+
+```
+console.log(false && false) // outputs false
+console.log(true && false) // outputs false
+console.log(false && true) // outputs false
+console.log(true && true) // outputs true
+```
+You will notice that this pretty much follows the logic gate described above - It only outputs true when both are true. However, what javascript is actually doing is "if condition1 is truthy, returns condition2. If condition1 is not truthy, return condition1." If you follow that rule to each of the cases listed, you'll see that statement is true.
+
+This is important to understand because in javascript each condition isn't simply a binary 1 or 0, but any type of value such as 'string', 'number', 'undefined', 'null', etc. Let's go over the above example with different value types.
+
+```
+console.log(undefined && null) // outputs undefined
+console.log(null && 'world') // outputs null
+console.log('' && null) // outputs ''
+console.log('hello' && null) // outputs null
+console.log('hello' && 'world') // outputs 'world'
+```
+
+the && operator DOES NOT return a boolean `false` or `true` in javascript. It always returns either the first statement or second statement it is given, depending on their truthy state. The same concept goes for `||`
+
+```
+// boolean examples
+console.log(false || false) // outputs false
+console.log(true || false) // outputs true
+console.log(false || true) // outputs true
+console.log(true || true) // outputs true
+
+// using || with other types
+console.log(undefined || null) // outputs null
+console.log(null || 'world') // outputs 'world'
+console.log('' || null) // outputs null
+console.log('hello' || null) // outputs 'hello'
+console.log('hello' || 'world') // outputs 'hello'
+```
+
+As stated, the OR operator does the following logic: if condition1 is truthy, returns condition1. If not, return condition2. The behavior of these two logical operators is a pretty large 'gotcha' in javascript, and many developers go for years without fully understanding it. However, deep understanding of this is a valuable building block to becoming a great javascript engineer.
+
+NOT operator, `!`, is different from the above two as it actually outputs a boolean `true` or `false`.
+
+```
+// boolean examples
+console.log(!false) // outputs true
+console.log(!true) // outputs false
+
+// other types
+console.log(!null) // outputs true
+console.log(!'world') // outputs false
+console.log(!undefined) // outputs true
+console.log(!'') // outputs true
+```
+
+This makes sense from implementation perspective, as 'NOT' of a `string` doesn't really make much sense, so it must be converted into a true/false statement (a `boolean`) before giving a reasonable answer.
+
+
