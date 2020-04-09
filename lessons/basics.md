@@ -23,6 +23,13 @@ This section of lessons will cover the first building blocks of javascript knowl
     + [Equality Check](#equality-check)
     + [Javascript Value comparisons](#javascript-value-comparisons)
     + [Logical Operators - AND OR and NOT](#logical-operators-and-or-and-not)
+    + [AND OR](#and-or)
+    + [NOT](#not)
+    + [How Logical Operators work in Javascript](#how-logical-operators-work-in-javascript)
+    + [Logical Order of Operations](#logical-order-of-operations)
+  * [Lesson Three: Non-primitive types](#lesson-three-non-primitive-types)
+    + [Function](#function)
+
 
 
 ### Why Javascript?
@@ -396,12 +403,12 @@ NOT gate, in lieu to the binary 0-false and 1-true example above, would simply g
 These above 3 gates are fundamental building blocks of logic. By chaining these gates together, stuff like stoplights / flashlights with multiple settings are built. Understanding the logical operations and how we abstract each binary value to represent a state is important to learning not only javascript, but all of coding and computer science.
 
 
-#### How this works in javascript
+#### How logical operators work in javascript
 
 Here's a table of how to express the logic operators in javascript.
 
 Name | Syntax | Description
---- | --- | --- | ---
+--- | --- | ---
 AND | `condition1 && condition2`  | if condition1 is truthy, returns condition2. If condition1 is not truthy, return condition1.
 OR | `condition1 || condition2`  | if condition1 is truthy, returns condition1. If not, return condition2.
 NOT | `!condition`  | returns the boolean `false` if `condition` is truthy. If not, returns `true`.
@@ -461,4 +468,233 @@ console.log(!'') // outputs true
 
 This makes sense from implementation perspective, as 'NOT' of a `string` doesn't really make much sense, so it must be converted into a true/false statement (a `boolean`) before giving a reasonable answer.
 
+#### Logical order of operations
 
+Let's consider this code below. It's a bit trickier, but we'll go over it in detail.
+
+```
+let x = 1;
+let y = null;
+
+console.log(x === 1 || !x && y)
+```
+
+What would console.log output here? Let's think this through together. If one assumes that javascript will do this in order, we could evaluate it like so:
+
+1. `x === 1` becomes false as `x` is `1`, so let's think of this as `console.log(true || !x && y)`
+2. Since OR (`||`) statements returns the left-side statement if it is truthy, we don't even have to worry about `!x` part of that. `console.log(true || !x && y)` becomes `console.log(true && y)`
+3. Since AND (`&&`) returns the right-side statement if the left side is truthy, it becomes `y`, so statement becomes `console.log(y)`, which outputs `null`.
+
+However, when you run this code, it actually outputs the boolean `true`!! This is because the `&&` operator is executed before the `||` operator, kinda like how in good old PEMDAS, multiplication is executed before addition! What actually happened is
+
+1. Within `console.log(x === 1 || !x && y)`, `&&` operator is executed first. So we look at `!x && y`. `x` is a number with a value that is not `0`, so it is truthy. `!x`, therefore, becomes `false`. Since AND (`&&`) immediately returns the left-side statement if it was falsey, we don't even have to look at `y`. The statement `!x && y` becomes `false`. Let's simplify the current step of our console statement as `console.log(x === 1 || false)`
+2. Since OR statements return the left-side statement if it is truthy, we don't evaluate the `false` expression on the right in `console.log(x === 1 || false)`. The left side becomes `true`, so the entire expression becomes `true`.
+
+Phew, we figured out what's going on. So what if you want to evaluate the `||` statement first instead of letting javascript engine do what it wants? Just like in math, we use parenthesis:
+
+```
+let x = 1;
+let y = null;
+
+console.log((x === 1 || !x) && y) // this will run the `||` statement first, then `&&`
+```
+This above code will execute as we detailed the first time through, when we assumed javascript will evaluate code in order. If you're curious, here's the [full list of order precendence](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence)... though at this point lot of stuff on there you wouldn't know about. Just remember to put things in parenthesis if you're expecting that expression to be evaluated first!
+
+Another example of this, bit trickier, is
+```
+let x = 1;
+
+if (!typeof x === 'string') {
+  console.log('x is not a string');
+} else {
+  console.log('x is a string');
+}
+```
+
+When writing this, we are expecting to evaluate `typeof x === 'string'`, then take the `NOT` of that, effectively checking that `typeof x` is NOT a string. However, this code will output `x is a string` when run!
+
+This is, as you may have guessed, because of order of operations. Let's go through what's happening in detail.
+1. javascript evaluates `typeof x` part of the statement first, which becomes `'number'`. Let's write that out: `if (!'number' === 'string')`
+2. The `!` is applied to `'number'`, becoming `(false === 'string')`. Since `false` is not equal(`===`) to `'string'`, the `if` statement evaluates as falsey and goes to the `else` statement.
+
+To solve this problem, we can use the parenthesis like this:
+```
+let x = 1;
+
+if (!(typeof x === 'string')) {
+  console.log('x is not a string');
+} else {
+  console.log('x is a string');
+}
+```
+Which would evaluate the parenthesis, in this order:
+1. javascript evaluates `typeof x` part of the statement first, which becomes `'number'`. Let's write that out: `if (!('number' === 'string'))`
+2. Since `'number' === 'string'` is false, it becomes `if (!(false))`
+3. Then, the `!` makes the `false` become `true.`. The `if` statement is evaluated as truthy, and it will output the first code block.
+
+Or even simpler, we can just use `!==`
+```
+let x = 1;
+
+if (typeof x !== 'string') {
+  console.log('x is not a string');
+} else {
+  console.log('x is a string');
+}
+```
+Which would be easier to read and understand, so is the recommended way of writing such code.
+
+## Lesson 3: Non-primitive types
+
+Everything we've learned so far was to introduce these more complex types. Specifically, we will cover functions and objects, the core building blocks of programming and how they behave in javascript.
+
+#### Function
+
+Functions are a way in javascript to enclose a set of statements that performs a specific task or calculation. This is powerful as it allows us to encapsulate any complex set of code and re-use it anywhere else later. Let's learn how to define functions.
+
+```
+function add(number1, number2) {
+  return number1 + number2;
+}
+```
+
+The statement `function` declares what is to follow will be the name of the function with arguments it takes. Arguments here are `number1` and `number2`. When you declare those arguments, they are automatically defined as a variable within the enclosing `{}` brackets. `return` is important - it immediately returns the following statement to the caller. That means any code after the `return` statement is unreacheable, like so:
+
+```
+function add(number1, number2) {
+  return number1 + number2;
+
+  console.log('got here');
+}
+```
+In the above case, `'got here'` will never show up in the console, and is dead code - code that is useless because it can never execute.
+
+Let's use this function we just declared.
+```
+function add(number1, number2) {
+  return number1 + number2;
+}
+
+let x = 1;
+let y = 1;
+let sum = add(x, y);
+
+console.log(sum); // outputs 2
+```
+
+It's not required to save the result of a function into a variable, it just evaluates to whatever it `return`s. An example
+```
+function add(number1, number2) {
+  return number1 + number2;
+}
+
+let x = 1;
+let y = 1;
+
+console.log(add(x, y)); // outputs 2
+```
+
+It is also possible to declare a function as a variable!
+```
+let add = function(number1, number2) {
+  return number1 + number2;
+}
+
+let x = 1;
+let y = 1;
+
+console.log(add(x, y)); // outputs 2
+```
+
+Let's make a bit more complex function that returns a input's value squared if it is a number and outputs the string 'please give me a number' to the output if the input isn't a number.
+
+```
+function squareNumber(input) {
+  if (typeof input === 'number') {
+    return input * input; // note: `*` is a multiplication operator in javascript
+  } else {
+    console.log('please give me a number');
+    return;
+  }
+}
+```
+
+The above function has a few interesting discussion points. Our second `return` statement has nothing except the semicolon after it. What does it return when it gets to that code block?
+```
+let result = squareNumber("hello, world.");
+
+console.log(result); // what does this statement print?
+```
+
+The answer is `undefined`. Returning nothing, to javascript, is simply returning an `undefined` value. Above code would output `please give me a number` first as defined in the function, then also output `undefined` as the evaluation of `result`.
+
+In fact, that `return` is not necessary in the function. Consider the following change
+```
+function squareNumber(input) {
+  if (typeof input === 'number') {
+    return input * input; // note: `*` is a multiplication operator in javascript
+  } else {
+    console.log('please give me a number'); // we removed the return statement below
+  }
+}
+```
+The above function behaves exactly the same as the function with the second `return` statement. When a function code reaches the end of execution without encountering any `return` statements, it simply returns `undefined` and ends execution.
+
+Functions do not need an argument, it can simply run a grouping of code without any.
+```
+function printHelloWorld() {
+  console.log('hello, world');
+}
+
+printHelloWorld();
+printHelloWorld(); // we called it twice, so hello world is output to the console twice.
+```
+
+It's important to remember that when declaring a function like this, code within the function has no context of the caller. What I mean is shown below
+```
+let str = 'hello, world.';
+
+function printStr() {
+  console.log(str); // prints `undefined`, as `str` is not defined within this scope.
+}
+```
+Above code introduces the very important concept of **scope**, which we will go over in detail in upcoming lessons.
+
+Javascript is very (some argue it is too) flexible and do not require every declared parameter to actually have a value assigned!
+
+```
+function squareNumber(input) {
+  if (typeof input === 'number') {
+    return input * input;
+  } else {
+    console.log('please give me a number');
+  }
+}
+
+squareNumber(); // outputs 'please give me a number'
+```
+
+What's going on here? Let's modify our function to give us more details on our input to learn about it.
+
+```
+function squareNumber(input) {
+  if (typeof input === 'number') {
+    return input * input; // note: `*` is a multiplication operator in javascript
+  } else {
+    console.log('you gave me a type of ' + typeof input) // yes, you can add strings together and they become joined
+    console.log('please give me a number'); // we removed the return statement below
+  }
+}
+
+squareNumber(); // outputs 'you gave me a type of undefined' and 'please give me a number'
+```
+
+So functions actually just declares the arguments with value assigned, or simply declares it as undefined. You can see why actually setting some variable as `undefined`, like `let something = undefined`, is a bad practice - javascript sets things as undefined for you on anything that's declared but not assigned a value. We'll see more examples of this soon!
+
+Function is its own type as well. This is the first **non-primitive** value we have learned!
+```
+// ... assume there's code that declared add as a function like we've been doing
+console.log(typeof add) // outputs 'function'
+```
+
+What is special about non-primitive values? Well, to fully understand the concept, let's learn another very important non-primitive value - Objects.
