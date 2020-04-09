@@ -1,7 +1,7 @@
 /**
   function isNumberType
-  @param {any}
-    any javascript variable
+  @param input {any}
+    input can be any type of javascript variable
   @return {boolean}
     if input is of type number, return `true`.
     if not, output to the console describing what type of input was given then return 'false'
@@ -12,19 +12,19 @@ function isNumberType(input) {
 
 /**
   function square
-  @param {number}
-    expected to be a number but this function does not check whether this is true.
+  @param numToSquare {number}
+    expected to be type number but this function does not check whether this is true.
   @return {number}
     the given number, squared.
 */
-function square(number) {
+function square(numToSquare) {
   // write code that satisfies above function description.
 }
 
 /**
   function add
-  @param {number}, {number}
-    Both parameters should be a number but this function does not check whether this is true.
+  @param number1 {number}, number2 {number}
+    Both parameters should be type number but this function does not check whether this is true.
   @return {number}
     the first number added by the second number.
 
