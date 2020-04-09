@@ -606,6 +606,8 @@ let y = 1;
 console.log(add(x, y)); // outputs 2
 ```
 
+**`return` behavior within function**
+
 Let's make a bit more complex function that returns a input's value squared if it is a number and outputs the string 'please give me a number' to the output if the input isn't a number.
 
 ```
@@ -658,7 +660,22 @@ function printStr() {
   console.log(str); // prints `undefined`, as `str` is not defined within this scope.
 }
 ```
-Above code introduces the very important concept of **scope**, which we will go over in detail in upcoming lessons.
+Above code introduces the very important concept of **scope**, which we will go over in detail later in upcoming lessons.
+
+**Function calling behavior**
+
+Functions are evaluated soon as it is called, so you can use it in various contexts. For example, let's say the functions we discussed as examples, `add` and `squareNumber` has been declared. You can use them like below
+```
+let x = 1;
+let y = 1;
+
+let answer = squareNumber(add(x, y));
+console.log(answer); // outputs 4
+```
+
+So the innermost `add(x,y)` is evaluated first, becoming `2`, then that becomes the argument for `squareNumber`, which returns `4`. We print the `answer` after.
+
+**Calling functions with missing arguments**
 
 Javascript is very (some argue it is too) flexible and do not require every declared parameter to actually have a value assigned!
 
