@@ -29,8 +29,11 @@ This section of lessons will cover the first building blocks of javascript knowl
     + [Logical Order of Operations](#logical-order-of-operations)
   * [Lesson Three: Non-primitive types](#lesson-three-non-primitive-types)
     + [Function](#function)
-
-
+      - [return](#return)
+      - [Calling Functions](#calling-functions)
+    # [Object](#Object)
+      - [Accessing Object Values](#accessing-object-values)
+      - [When to use bracket notation](#when-to-use-bracket-notation)
 
 ### Why Javascript?
 
@@ -481,7 +484,7 @@ console.log(x === 1 || !x && y)
 
 What would console.log output here? Let's think this through together. If one assumes that javascript will do this in order, we could evaluate it like so:
 
-1. `x === 1` becomes false as `x` is `1`, so let's think of this as `console.log(true || !x && y)`
+1. `x === 1` becomes true as `x` is `1`, so let's think of this as `console.log(true || !x && y)`
 2. Since OR (`||`) statements returns the left-side statement if it is truthy, we don't even have to worry about `!x` part of that. `console.log(true || !x && y)` becomes `console.log(true && y)`
 3. Since AND (`&&`) returns the right-side statement if the left side is truthy, it becomes `y`, so statement becomes `console.log(y)`, which outputs `null`.
 
@@ -606,41 +609,67 @@ let y = 1;
 console.log(add(x, y)); // outputs 2
 ```
 
-**`return` behavior within function**
+#### return
 
-Let's make a bit more complex function that returns a input's value squared if it is a number and outputs the string 'please give me a number' to the output if the input isn't a number.
+You can return any statement that evaluates. Simple cases for types such as below.
 
 ```
-function squareNumber(input) {
-  if (typeof input === 'number') {
-    return input * input; // note: `*` is a multiplication operator in javascript
+// below are just examples of return statements
+return true;
+return 'hello';
+return add(x, y); // would return whatever add() function returns
+```
+
+Some less obvious way to return might be using our && / || behavior we went over.
+
+```
+let x = false;
+let y = 'I am the walrus';
+return x || y // returns 'I am the walrus'
+```
+
+as we know, in above statement `x || y` the behavior of `||` makes it so the statement evaluates to `y`, which is 'I am the walrus'.
+
+It's important to remember that you do not have to return anything!
+```
+function printNumber(someNum) {
+  if (typeof someNum === 'number') {
+    return someNum;
   } else {
-    console.log('please give me a number');
     return;
   }
 }
 ```
 
-The above function has a few interesting discussion points. Our second `return` statement has nothing except the semicolon after it. What does it return when it gets to that code block?
+We can see our second `return` statement has nothing except the semicolon after it. What does it return when it gets to that code block?
 ```
-let result = squareNumber("hello, world.");
+let result = printNumber("Not a number type");
 
 console.log(result); // what does this statement print?
 ```
 
-The answer is `undefined`. Returning nothing, to javascript, is simply returning an `undefined` value. Above code would output `please give me a number` first as defined in the function, then also output `undefined` as the evaluation of `result`.
-
-In fact, that `return` is not necessary in the function. Consider the following change
+The answer is `undefined`. Returning nothing, to javascript, is simply returning an `undefined` value. In fact, that `return` is not necessary in the function. Consider the following change
 ```
-function squareNumber(input) {
-  if (typeof input === 'number') {
-    return input * input; // note: `*` is a multiplication operator in javascript
-  } else {
-    console.log('please give me a number'); // we removed the return statement below
+function printNumber(someNum) {
+  if (typeof someNum === 'number') {
+    return someNum;
   }
 }
 ```
-The above function behaves exactly the same as the function with the second `return` statement. When a function code reaches the end of execution without encountering any `return` statements, it simply returns `undefined` and ends execution.
+The above function behaves exactly the same as the function with a second `else return` statement. When a function code reaches the end of execution without encountering any `return` statements, it simply returns `undefined` and ends execution.
+
+#### Calling functions
+
+Functions are evaluated soon as it is called, so you can use it in various contexts. For example, let's say the functions we discussed as examples, `add` and `squareNumber` has been declared. You can use them like below
+```
+let x = 1;
+let y = 1;
+
+let answer = squareNumber(add(x, y));
+console.log(answer); // outputs 4
+```
+
+So the innermost `add(x,y)` is evaluated first, becoming `2`, then that becomes the argument for `squareNumber`, which returns `4`. We print the `answer` after.
 
 Functions do not need an argument, it can simply run a grouping of code without any.
 ```
@@ -661,19 +690,6 @@ function printStr() {
 }
 ```
 Above code introduces the very important concept of **scope**, which we will go over in detail later in upcoming lessons.
-
-**Function calling behavior**
-
-Functions are evaluated soon as it is called, so you can use it in various contexts. For example, let's say the functions we discussed as examples, `add` and `squareNumber` has been declared. You can use them like below
-```
-let x = 1;
-let y = 1;
-
-let answer = squareNumber(add(x, y));
-console.log(answer); // outputs 4
-```
-
-So the innermost `add(x,y)` is evaluated first, becoming `2`, then that becomes the argument for `squareNumber`, which returns `4`. We print the `answer` after.
 
 **Calling functions with missing arguments**
 
@@ -715,3 +731,154 @@ console.log(typeof add) // outputs 'function'
 ```
 
 What is special about non-primitive values? Well, to fully understand the concept, let's learn another very important non-primitive value - Objects.
+
+### Object
+
+Objects can be thought of data with properties attached to it. In real life, an object, say, apple, also has properties. Its color may be red, while its weight might be 2 ounces.
+
+Let's define an object here.
+
+```
+let apple = {};
+```
+
+We've just defined an object named `apple`! Just like a real object, a javascript object should have variables that is attached as its property.
+
+```
+let apple = {};
+apple.color = 'red';
+
+console.log(apple);
+```
+
+The above should output something like `{ color: 'red' }`. We initialized the object with `let apple = {}` then added a property `color` in the next line. There's multiple ways to initialize an object - you can set values right as you create one.
+
+```
+let apple = {};
+apple.color = 'red';
+
+console.log(apple);
+
+let greenApple = {
+  color: 'green'
+};
+
+console.log(greenApple);
+```
+
+The second apple defined here immediately defined its property using the syntax `color: 'green'`. The left hand side here, `color`, is called the **key** of the property. Right hand side, `'green'`, is the **value**.
+
+Let's add the weight property to our objects.
+```
+let apple = {};
+apple.color = 'red';
+apple.weight = '2oz';
+
+console.log(apple);
+
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+
+console.log(greenApple);
+```
+
+Each property in an object assignment as shown in ```
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+```
+must be separated by commas.
+
+Both ways of initializing the apple objects are valid and achieved the same result. Of course, you can add or edit additional properties no matter method of initialization.
+
+```
+let apple = {};
+apple.color = 'red';
+apple.weight = '2oz';
+
+console.log(apple);
+
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+
+greenApple.weight = '3oz'; // correct the weight
+console.log(greenApple);
+```
+We just overwrote the `weight` property in `greenApple` with a new value.
+
+#### Accessing Object values
+
+We've seen how to create an object. Let's go into how to access its properties.
+
+```
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+
+console.log(greenApple.weight); // outputs '2oz'
+let greenAppleWeight = greenApple.weight;
+console.log(greenAppleWeight); // outputs '2oz'
+```
+
+the `<objectName>.<propertyKeyName>` notation (named dot notation) is how you access the property key value in javascript. Let's introduce another way to access the values.
+
+```
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+
+console.log(greenApple['color']) // outputs 'green'
+```
+This `<objectName>[<propertyKeyName>]` is called the bracket notation and is another valid way to access a property value. What's important to remember is that the key name is stored as a **string**! To drive this point, see the following code
+```
+let greenApple = {
+  color: 'green',
+  weight: '2oz'
+};
+let colorString = 'color';
+
+console.log(greenApple[colorString]) // outputs 'green'
+```
+
+#### When to use bracket notation
+
+So when would you use one over the other? The bracket notation should be used when you are using a variable to represent a property key name. To illustrate this point, let's make a function that creates an apple object.
+
+```
+function makeApple(givenColor) {
+  let weightMap = {
+    red: '2oz',
+    green: '3oz',
+    blue: '0oz' // the mythical floating apple
+  };
+
+  return {
+    color: givenColor,
+    weight: weightMap[givenColor]
+  }
+}
+
+makeApple('red') // returns { color: 'red', weight: '2oz' }
+makeApple('blue') // returns { color: 'blue', weight: '0oz' }
+```
+
+This was a bit more complex, so let's dive in a bit. This function named `makeApple` first defines an object called `weightMap` that, when given a property key of `red` `green` or `blue` returns a string that represents a weight. This object is used to construct the returned object.
+
+We can see the simplicity of using an object as a mapping from some value to another. This is why we named the variable `weightMap`, as it is a `map` of the color to its weight value. Imagine writing the `weight` property based on color without the `map`; it would have to be something like
+```
+// ... inside the makeApple function..
+let apple = { color: givenColor };
+
+if (givenColor === 'red') { apple.weight = '2oz'; }
+else if (givenColor === 'green') { apple.weight = '3oz'; }
+
+return apple
+```
+Which is a lot more code than our solution using the `weightMap` above, and much more work to add new key/value combos as we'd have to write an `if` statement for each to color/weight combination. Using a `map`, we can simply just define the new property and it'd be recognized.
