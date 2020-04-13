@@ -31,7 +31,7 @@ This section of lessons will cover the first building blocks of javascript knowl
     + [Function](#function)
       - [return](#return)
       - [Calling Functions](#calling-functions)
-    # [Object](#Object)
+    + [Object](#Object)
       - [Accessing Object Values](#accessing-object-values)
       - [When to use bracket notation](#when-to-use-bracket-notation)
 
