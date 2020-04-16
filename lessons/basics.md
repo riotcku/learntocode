@@ -27,13 +27,14 @@ This section of lessons will cover the first building blocks of javascript knowl
     + [NOT](#not)
     + [How Logical Operators work in Javascript](#how-logical-operators-work-in-javascript)
     + [Logical Order of Operations](#logical-order-of-operations)
-  * [Lesson Three: Non-primitive types](#lesson-three-non-primitive-types)
+  * [Lesson 3: Non-primitive types](#lesson-3-non-primitive-types)
     + [Function](#function)
       - [return](#return)
       - [Calling Functions](#calling-functions)
     + [Object](#Object)
       - [Accessing Object Values](#accessing-object-values)
       - [When to use bracket notation](#when-to-use-bracket-notation)
+      - [More on objects](#more-on-objects)
 
 ### Why Javascript?
 
@@ -883,3 +884,124 @@ else if (givenColor === 'green') { apple.weight = '3oz'; }
 return apple
 ```
 Which is a lot more code than our solution using the `weightMap` above, and much more work to add new key/value combos as we'd have to write an `if` statement for each to color/weight combination. Using a `map`, we can simply just define the new property and it'd be recognized.
+
+#### More on Objects
+
+So what data can objects store? Anything, really. Here's an example of an object storing a function.
+```
+function eatApple() {
+  console.log('You took a big bite of the apple. Yum!');
+}
+
+let apple = {
+  color: 'red',
+  weight: '2oz',
+  eat: eatApple
+};
+
+apple.eat() // outputs 'You took a big bite of the apple. Yum!'
+```
+
+What's key to notice here is that **we did not call eatApple()**, but rather just assigned it to the property key `eat`!
+
+We called it later, when we ran `apple.eat()`. Let us illustrate the difference.
+
+```
+function eatApple() {
+  console.log('You took a big bite of the apple. Yum!');
+}
+
+let apple = {
+  color: 'red',
+  weight: '2oz',
+  eat: eatApple
+};
+
+apple.eat(); // outputs 'You took a big bite of the apple. Yum!'
+apple.eat; // does not output anything.
+
+console.log(typeof apple.eat()) // outputs the big bite statement then the string `"undefined"`
+console.log(typeof apple.eat) //  outputs 'function'
+```
+
+The function, when NOT called with `()`, is like another variable - it can be passed around and called when needed. However, when you DO call it with `()`, it becomes whatever value it returns.
+
+Objects can hold other objects.
+```
+let appleStats = {
+  weight: '2oz',
+  height: '3 inches',
+  width: '2.6 inches'
+};
+
+let apple = {
+  color: 'red',
+  stats: appleStats
+};
+
+console.log(apple.stats.width); // outputs '2.6 inches'
+console.log(apple.stats.height); // outputs '3 inches'
+console.log(apple.color); // outputs 'red'
+```
+
+#### Value assignment and Objects
+
+Consider this code
+```
+let appleStats = {
+  weight: '2oz',
+  height: '3 inches',
+  width: '2.6 inches'
+};
+
+let apple = {
+  color: 'red',
+  stats: appleStats
+};
+
+appleStats.weight = '200mg';
+
+console.log(apple.stats.weight); // what does this output?
+```
+
+The answer here is `200mg`. What happened here? If we think back to when we first learned about variable assignments, we tried to hammer in the point of `primitive` types BECOMING a value instead of POINTING to something.
+
+Objects are a `non-primitive`! When you assign a non primitive types to a variable, like we did in
+```
+let apple = {
+  color: 'red',
+  stats: appleStats // we are assigning appleStats to stats
+}
+```
+We were not saying `apple.stats` is a new object that looks exactly like `appleStats`, it is POINTING to it - stats now just referencing appleStats. So, if you change `appleStats` like
+
+`appleStats.weight = '200mg';`
+
+We are also changing the value of everything that's pointing at `appleStats`, in this case our `apple.stats`.
+
+This concept is a little complex, and many experienced developers make the mistake of forgetting this. The key is to have this type of knowledge in your head so you can correct mistakes you will undoubtedly make.
+
+Here's a little more example code illustrating this behavior.
+```
+let appleStats = {
+  weight: '2oz',
+  height: '3 inches',
+  width: '2.6 inches'
+};
+
+let apple = {
+  color: 'red',
+  stats: appleStats
+};
+
+let greenApple = {
+  color: 'green',
+  stats: appleStats
+};
+
+console.log(apple.stats.weight, greenApple.stats.weight); // outputs '2oz 2oz'
+
+appleStats.weight = '200mg';
+
+console.log(apple.stats.weight, greenApple.stats.weight); // outputs '200mg 200mg'
+```
