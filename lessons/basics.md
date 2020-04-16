@@ -414,7 +414,7 @@ Here's a table of how to express the logic operators in javascript.
 Name | Syntax | Description
 --- | --- | ---
 AND | `condition1 && condition2` | if condition1 is truthy, returns condition2. If condition1 is not truthy, return condition1.
-OR | condition1 `||` condition2 | if condition1 is truthy, returns condition1. If not, return condition2.
+OR | condition1 `\|\|` condition2 | if condition1 is truthy, returns condition1. If not, return condition2.
 NOT | `!condition` | returns the boolean `false` if `condition` is truthy. If not, returns `true`.
 
 It may seem the descriptions seem unrelated to the logical tables we went over above. That's why it was important to go over the concept of the logic tables first, then go into how javascript implemented them. The above concept, in the simplest case, each `condition` variables would be just booleans. Let's go over the `AND` operator with the simple case of `boolean` variables.
