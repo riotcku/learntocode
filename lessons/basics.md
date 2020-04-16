@@ -784,7 +784,8 @@ let greenApple = {
 console.log(greenApple);
 ```
 
-Each property in an object assignment as shown in ```
+Each property in an object assignment as shown in
+```
 let greenApple = {
   color: 'green',
   weight: '2oz'
