@@ -35,6 +35,9 @@ This section of lessons will cover the first building blocks of javascript knowl
       - [Accessing Object Values](#accessing-object-values)
       - [When to use bracket notation](#when-to-use-bracket-notation)
       - [More on objects](#more-on-objects)
+  * [Scope](#scope)
+    + [const](#const)
+    + [var](#var)
 
 ### Why Javascript?
 
@@ -1005,3 +1008,90 @@ appleStats.weight = '200mg';
 
 console.log(apple.stats.weight, greenApple.stats.weight); // outputs '200mg 200mg'
 ```
+
+### Scope
+
+Scope is the context of code being executed. It is the context in which defined values, like variables and properties of objects, are visible or can be referenced.
+
+Here is an example of variable not existing outside its scope
+```
+function sayHello() {
+  let greetings = 'hello, world';
+  console.log(greetings);
+}
+
+console.log(greetings); // syntax error
+```
+Scope is passed down top-down, as in the children scopes have context of the parent values. Like below
+
+```
+let greetings = 'hello, world';
+
+function sayHello() {
+  console.log(greetings);
+}
+```
+
+Whenever there are curly braces surrounding a block of code, that is a new child scope. `let` is only available on that scope level and its children scopes.
+```
+// scope level 0 is top level
+let x = 0;
+if (true) { // true makes it guaranteed to execute
+  // let's call inside this if block level 1
+  let y = 1;
+  if (true) {
+    // we'll call inside this second if block level 2
+    let z = 2;
+    console.log(x,y,z); // logs 0 1 2
+  }
+
+  console.log(z) // Error: z is not defined
+}
+console.log(y) // Error: y is not defined
+```
+
+There are multiple ways you can define a variable, which changing its behavior and scope.
+
+#### const
+
+`const` is scoped the same way as `let` declarations, as in they are assigned to the block it is called in. However, `const`, standing for `constant`, cannot be re-assigned another variable value - term known as 'read-only'. This is for efficiency in memory usage, and is good practice. If you know a variable will have a certain value, and it always will have that value, declare it with a `const`.
+
+```
+const HELLO_PHRASE = 'hello, world'; // commonly, consts are all-caps, though not required
+
+console.log(thatPhrase); // outputs 'hello, world'
+
+HELLO_PHRASE = 'henlo world!' // Error: Assignment to constant variable
+```
+
+#### var
+
+So far, we've mostly used `let`. This is because `let` has the most predictable way of defining a variable - to the scope it is in, and for its children scopes.
+
+`var` is another way of declaring a variable. The different between `let` and `var` is that `var` declared variables are either **global-level** or if you call it within a function, **function-level**.
+
+```
+if (true) {
+  var x = 'hello';
+}
+
+console.log(x); // prints 'hello'
+
+function someFunction() {
+  console.log(x); // prints 'hello'
+
+  if (true) {
+    var y = 'world';
+  }
+
+  console.log(y); // prints 'world'
+}
+
+someFunction();
+console.log(y); // Error: y is not defined
+```
+
+Notice how accessing `y` caused an error outside the function someFunction, yet was available outside the `if` block that surrounds it. `var` variables escape its scope to the function that it is called in, and is available in that context.
+
+`var` is an older javascript declarator, and has been around since the start of js. However, there are very few contexts where using it is recommended over a `let`, which is when you want some variable within a child scope to be available to the whole function.
+
