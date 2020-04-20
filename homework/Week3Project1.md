@@ -20,6 +20,8 @@ Extra credit: Your function will output an error message if
 1. the given argument is not an 'object' type
 2. the object given does not have the properties `color`,`shape`, and `price`.
 
+You can write the error message using `console.log('errormessage here')` or if you want to be fancy, `console.error('errormessage here')`
+
 ### Turning it in
 
 Rename the file similar to the first project: `{first name or discord name}-objects.js` So mine might be called `chris-objects.js` or `ink-objects.js`.
