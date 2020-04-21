@@ -1095,3 +1095,168 @@ Notice how accessing `y` caused an error outside the function someFunction, yet 
 
 `var` is an older javascript declarator, and has been around since the start of js. However, there are very few contexts where using it is recommended over a `let`, which is when you want some variable within a child scope to be available to the whole function.
 
+### Loops
+
+Whenever you find yourself needing to execute some code repeatedly, loops offer that mechanism.
+
+There are many different kinds of loops, but they all do the same thing: repeat some line of code a number (could be zero) of times. Let's go over two types that are used most commonly - `for` loops and `while` loops.
+
+#### for
+
+A for loop repeats until a specific condition evaluates to false. Let's see how to declare those conditions below
+
+```
+for (initialExpression; condition; incrementExpression) {
+  <code>// code runs until <condition> is false
+}
+```
+
+To put it in more concrete example,
+
+```
+for (let i = 0; i < 5; i++) {
+  console.log(i);
+} // prints 0 1 2 3 4
+```
+
+Below is shamelessly taken and edited slightly from [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Loops_and_iteration).
+
+When a for loop executes, the following occurs in order:
+
+1. The initializing expression initialExpression, if any, is executed. This expression usually declares one or more loop counter variable. You can do more complex things here, but let's not worry about it for now. This step is only ran once at the very beginning of the loop!
+2. The condition expression is evaluated. If the value of condition is true, the loop statements execute. If the value of condition is false, the for loop terminates. (If the condition expression is omitted entirely, the condition is assumed to be true.) In this case, `i < 5` is the condition expression. The loop will check whether `i` is less than `5` here.
+3. The code wrapped in `{}` executes once. Note that this block has access to `initialExpression`, as shown in `console.log(i)` in example code. If it encounters a `break` statement, the loop terminates. We'll go over this later.
+4. If present, the update expression incrementExpression is executed. In this example, we have `i++`. `++` is a shorthand for `i += 1`, which is a shorthand for `i = i + 1`. Similarly, `--` is a shorthand for `i -= 1`, which is a shorthand for `i = i - 1`.
+5. go to step 2
+
+Let's use some of what we've learned from [Arrays](https://github.com/riotcku/learntocode/blob/master/lessons/data_structures.md#arrays) with a for loop. This is one of the most common uses of a for loop, iterating through a list.
+
+```
+const animals = ['dog', 'cat'];
+
+for (let index = 0; index < animals.length; index++) {
+  const currentAnimal = animals[index];
+  console.log("I found an animal! It's a " + currentAnimal);
+}
+```
+
+Above loop will output the console statement with each of the animal in the array `animals`. Notice the use of `animals.length` - `length` is a property of all arrays which gives us the length of the array (not 0-based!) which in this case is a 2.
+
+For loops can decrement instead of just increasing.
+```
+const animals = ['dog', 'cat'];
+
+for (let index = animals.length - 1; index > 0; index--) {
+  const currentAnimal = animals[index];
+  console.log("I found an animal! It's a " + currentAnimal);
+} // outputs the statement, but 'cat' first then 'dog'
+```
+Notice how i did `animals.length - 1`. It's because `length` property is not 0-based - it starts at 1. If we left that statement out, we'd be trying to access index `2` of the `animals` array, which has no data in it.
+
+For loops can be used to modify variables from the parent scope. One may wonder if the list of animals in the `animals` array contains a cat. We can check that like so
+
+```
+const animals = ['dog', 'cat'];
+let foundACat = false;
+
+for (let index = 0; index < animals.length; index++) {
+  const currentAnimal = animals[index];
+  if (currentAnimal === 'cat') {
+    foundACat = true;
+  }
+}
+
+if (foundACat) {
+  console.log('I found a cat!');
+}
+```
+
+#### return statement within a loop
+
+Let's say we have multiple arrays with different animals.
+```
+const animalsInChicago = ['dog', 'cat', 'horse', 'fish', 'bird'];
+const animalsInAntarctica = ['penguin', 'bird']; // are penguins birds? Kind of I guess? Let's say they're distinct
+```
+And we want to find if a 'cat' exists in these arrays. I don't want to have to call multiple `for` loops for each of these arrays. This is a perfect time for abstracting it to functions!
+
+I want a function named `findCat` that will accept some array as its parameter, and it will return true or false depending on whether it found a string 'cat' in that array.
+
+```
+const animalsInChicago = ['dog', 'cat', 'horse', 'fish', 'bird'];
+const animalsInAntarctica = ['penguin', 'bird'];
+
+function findCat(animalArray) {
+  for (let index = 0; index < animalArray.length; index++) {
+    if (animalArray[index] === 'cat') {
+      return true;
+    }
+  }
+  return false;
+}
+
+if (findCat(animalsInChicago)) {
+  console.log('there are cats in Chicago!');
+}
+if (findCat(animalsInAntarctica)) {
+  console.log('there are cats in Antarctica!');
+}
+```
+
+Above code outputs 'there are cats in Chicago!'. Notice how there is a `return` statement within a `for` loop, and it ends all code execution there. `return` is a way, just like `break` (as we'll go over in the next section), that a loop can end execution on the spot. If every animal in the index has been looped and for loop ends, then we can return `false` as we know we've checked everything in the list and did not find a cat.
+
+
+#### break
+
+Break statement is used to terminate the loop we are currently in. This is useful if we know if a certain condition is met, we no longer need the rest of the loops - for example, in the code above, when we find a cat, we no longer need to check the rest of the array: we completed what we wanted to do. This is for quicker, more efficient code. Let's make the `animals` array bigger and add a break statement when we find a cat.
+
+```
+const animals = ['dog', 'cat', 'horse', 'fish', 'elephant', 'bird'];
+let foundACat = false;
+
+for (let index = 0; index < animals.length; index++) {
+  const currentAnimal = animals[index];
+  if (currentAnimal === 'cat') {
+    foundACat = true;
+    break; // we found a cat, no need for rest of the loop
+  } else {
+    console.log("This is not a cat, it's a " + currentAnimal);
+  }
+}
+
+if (foundACat) {
+  console.log('I found a cat!');
+}
+```
+
+Above line would first find a dog and output `'This is not a cat, it's a dog'` then after finding a cat, break out of the loop and say that we found a cat. This may seem unnecessary, but consider that in programming world the list of animals could be every single animal ever, which would be a very large array. It's good programming to identify when you do not need to iterate the entire list of options and break early.
+
+#### continue
+
+The `continue` statement tells the loop to skip the rest of the code block and go to the next iteration of the loop.
+
+```
+const animals = ['dog', 'cat', 'horse', 'fish', 'elephant', 'bird'];
+let foundACat = false;
+
+for (let index = 0; index < animals.length; index++) {
+  const currentAnimal = animals[index];
+  if (currentAnimal !== 'cat') {
+    continue;
+  }
+  foundACat = true; // this line of code only executes when currentAnimal IS 'cat'
+}
+
+if (foundACat) {
+  console.log('I found a cat!');
+} else {
+  console.log('No cats here :(');
+}
+```
+
+`continue` is, similar to break, used to more efficiently run the loop. If you know you don't need to run any more code on one iteration after a certain condition, `continue` offers that mechanism.
+
+#### while
+
+`while` loops is another way of looping through code. It runs while a specific given condition evaluates as a truthy statement.
+
