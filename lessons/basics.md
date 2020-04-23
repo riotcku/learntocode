@@ -35,9 +35,16 @@ This section of lessons will cover the first building blocks of javascript knowl
       - [Accessing Object Values](#accessing-object-values)
       - [When to use bracket notation](#when-to-use-bracket-notation)
       - [More on objects](#more-on-objects)
-  * [Scope](#scope)
-    + [const](#const)
-    + [var](#var)
+  * [Lesson 4: Scopes and loops](#lesson-4-scopes-and-loops)
+    + [Scope](#scope)
+      - [const](#const)
+      - [var](#var)
+    + [Loops](#Loops)
+      - [for](#for)
+      - [return statement within a loop](#return-statement-within-a-loop)
+      - [break](#break)
+      - [continue](#continue)
+      - [while](#while)
 
 ### Why Javascript?
 
@@ -1009,6 +1016,10 @@ appleStats.weight = '200mg';
 console.log(apple.stats.weight, greenApple.stats.weight); // outputs '200mg 200mg'
 ```
 
+## Lesson 4: Scopes and loops
+
+You may have ran into a problem where a certain variable has been defined, but when referenced causes an ReferenceError. This is due to scoping, a concept very important in programming. In this section, we go over scoping in more detail and introduce the concept of loops.
+
 ### Scope
 
 Scope is the context of code being executed. It is the context in which defined values, like variables and properties of objects, are visible or can be referenced.
@@ -1258,5 +1269,50 @@ if (foundACat) {
 
 #### while
 
-`while` loops is another way of looping through code. It runs while a specific given condition evaluates as a truthy statement.
+`while` loops is another way of looping through code. It runs while a specific given condition evaluates as a truthy statement. Here's a simple example.
 
+```
+let x = 5;
+
+while(x !== 0) {
+  x--;
+}
+
+console.log(x); // outputs 0
+```
+
+`while` simply repeats the code until the condition within the parenthesis is truthy. This means that condition to make it false, in order to exit the loop, must exist. In the above example's case, we are decrementing `x` by 1 every loop, until `x` is 0.
+
+What happens when the loop never exits?
+
+```
+let x = 5;
+
+while(x !== 0) {
+  x++;
+}
+
+console.log(x);
+```
+
+Here, there is an obvious bug where x is incremented by 1 each iteration, while the condition expects `x` to decrement to 0. When this code executes, the program never terminates and runs forever until terminated (Control + c terminates execution of current process in the terminal). This is called an **infinite loop**.
+
+Infinite loops are worse than crashes because the program just halts there, never reporting what's wrong. Make sure when using either for or while loops you are guaranteed to exit!
+
+`break` and `continue` statements work in `while` loops as well.
+
+```
+let x = 5;
+let numOfLoops = 0;
+
+while (x !== 0) {
+  if (numOfLoops > 100) {
+    console.log('Okay, 100 times is enough. Exiting the while loop');
+    break;
+  }
+  x++;
+  numOfLoops++;
+}
+```
+
+Above statement has a failsafe built in for infinite loops, where it has a separate variable counting the loop step.

@@ -6,17 +6,18 @@ This homework assignment is designed to get you more comfortable with every type
 
 Write a javascript file that completes the following set of requirements.
 
-1. Declare an object named after your favorite fruit.
-2. This object must have the following properties
+- Declare an object named after your favorite fruit.
+- This object must have the following properties
   key: `color`
   value: a string describing its color.
   key: `shape`
   value: a string describing its shape.
   key: `price`
   value: a number between 0-421 describing its cost.
-3. Declare a function that takes an fruit object you made and outputs its `color`, `shape` and `price` to the console.
+- Declare a function that takes an fruit object you made and outputs its `color`, `shape` and `price` properties to the console.
 
 Extra credit: Your function will output an error message if
+
 1. the given argument is not an 'object' type
 2. the object given does not have the properties `color`,`shape`, and `price`.
 
