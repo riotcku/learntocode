@@ -1316,3 +1316,259 @@ while (x !== 0) {
 ```
 
 Above statement has a failsafe built in for infinite loops, where it has a separate variable counting the loop step.
+
+### Putting it all together
+
+Let's try putting everything we learned together and build a more complex program. As practice, together we will create a program that feeds animals.
+
+#### Project description
+
+The goal will of this exercise will be setting up a net of custom objects and functions that interact with one another.
+
+We will make `food` objects, to be stored in an array, which have the following properties
+
+- `{string} name`, name of the food, such as apple, steak, or onion.
+- `{string} type`, describing the type of food - 'meat', 'fruit', or 'vegetable'.
+- `{number} price`, describing the price of the food.
+- `{boolean} eaten`, boolean that denotes its state of having already been eaten or not.
+
+And also make `animal` objects, to be stored in an array, which have the following properties
+
+- `{string} name`, name of the animal, such as Roy, Arya or Snowball.
+- `{string} type`, type of the animal, such as dog, shark or songbird.
+- `{string} diet`, what does the animal eat, will be one of `omnivore`, `carnivore` or `herbivore`.
+- `{boolean} isHungry`, a boolean that is true when animal is hungry and false otherwise.
+
+And lastly the `recordBook` object, which have following properties for record keeping
+
+- `{object} fruits`, object which has these properties
+  * `{number} totalEaten`, total number of fruits eaten by animals
+  * `{number} totalCost`, total of all prices that animals have eaten
+- `{object} vegetables`, object which has these properties
+  * `{number} totalEaten`, total number of vegetables eaten by animals
+  * `{number} totalCost`, total of all prices that animals have eaten
+- `{object} meats`, object which has these properties
+  * `{number} totalEaten`, total number of meats eaten by animals
+  * `{number} totalCost`, total of all prices that animals have eaten
+
+To help keep these animals alive, we need the function `feed`, as follows
+
+```
+/**
+  feed
+  attempts to feed an animal. If the fruit is not eaten already, and if the `diet` of the animal matches the `type` of food offered, it will eat the food. If food is eaten, it sets the `eaten` flag of the `food` object to `true` while setting the animals `isHungry` flag to false. If food was eaten, update the recordBook object to reflect the new total number of eaten and total cost of foods eaten.
+
+  @param
+    food {object} object that will be given to the animal to eat.
+    animal {object} object that will be offered food to eat.
+
+  @return
+    {boolean} true if food was eaten, false if animal cannot eat the given food type due to dietary restrictions.
+*/
+function feed(food, animal) {
+  //... TODO: implement this function
+}
+```
+
+#### Working through the project
+
+The simplest of these tasks are to create `recordBook` object, which just needs to be declared. First, we know it's an object with three objects within. Before populating the objects within, let's declare them first.
+
+```
+const recordBook = {
+  fruits: {},
+  vegetables: {},
+  meats: {},
+}
+```
+
+So we now have `recordBook.fruits`, `recordBook.vegetables`, and `recordBook.meats` initialized as empty objects. Now, within, I want a totalEaten and totalCost properties, both numbers. Since none are eaten or costed me anything, we will set the values as 0.
+
+```
+const recordBook = {
+  fruits: {
+    totalEaten: 0,
+    totalCost: 0
+  },
+  vegetables: {
+    totalEaten: 0,
+    totalCost: 0
+  },
+  meats: {
+    totalEaten: 0,
+    totalCost: 0
+  }
+}
+```
+There is our record book, ready to be used. Let's setup some `food` objects, just as simple to set up.
+
+```
+const grape = {
+  name: 'grape',
+  type: 'fruit',
+  price: 1,
+  eaten: false
+};
+const lettuce = {
+  name: 'lettuce',
+  type: 'vegetable',
+  price: 2,
+  eaten: false
+};
+const steak = {
+  name: 'steak',
+  type: 'meat',
+  price: 8,
+  eaten: false
+};
+const foods = [grape, lettuce, steak];
+```
+
+And only remaining are some animal objects.
+
+```
+const roy = {
+  name: 'Roy',
+  type: 'dog',
+  diet: 'carnivore',
+  isHungry: true,
+};
+const bambi = {
+  name: 'Bambi',
+  type: 'deer',
+  diet: 'herbivore',
+  isHungry: true,
+};
+const dumbo = {
+  name: 'Dumbo',
+  type: 'elephant',
+  diet: 'herbivore',
+  isHungry: true,
+};
+const animals = [roy, bambi, dumbo];
+```
+
+Let's solve the `feed()` function step by step. So we know that animals being able to eat the food given is important. Let's first write a condition that if the food offered is compatible with the diet of the animal, we will return true.
+
+To do this, let's think it all out then write code. When can animals eat something?
+
+1. If animal diet is omnivore, any type of food is acceptable.
+2. If animal diet is carnivore, only food type of 'meat' is acceptable.
+3. If animal diet is herbivore, either food types of 'fruit' or 'vegetable' are acceptable.
+
+Let's write that out into code.
+
+
+```
+function feed(food, animal) {
+  const animalDiet = animal.diet;
+  const foodType = food.type;
+
+  // 1. If animal diet is omnivore, any type of food is acceptable
+  if (animalDiet === 'omnivore') {
+    // eat food
+  }
+  // 2. If animal diet is carnivore, only food type of 'meat' is acceptable.
+  if (animalDiet === 'carnivore' && foodType === 'meat') {
+    // eat food
+  }
+  // 3. If animal diet is herbivore, either food types of 'fruit' or 'vegetable' are acceptable.
+  if (animalDiet === 'herbivore' && (foodType === 'fruit' || foodType === 'vegetable')) {
+    // eat food
+  }
+}
+```
+
+Do all those `if` blocks do the same thing? Yes, they should all eat the food. Let's combine all three `if` into one statement that becomes true if any of the condition is met... which is a job for `||`! You simply can throw `()` around each of the `if` blocks and `||` it together. Since that is a long statement, let us save it into a variable called `canEat`
+
+```
+function feed(food, animal) {
+  const animalDiet = animal.diet;
+  const foodType = food.type;
+  const canEat = animalDiet === 'omnivore'
+    || (animalDiet === 'carnivore' && foodType === 'meat')
+    || (animalDiet === 'herbivore' && (foodType === 'fruit' || foodType === 'vegetable'))
+
+  if (canEat) {
+    // eat food
+  } else {
+    return false; // we know the animal cannot eat the food here in this else block.
+  }
+}
+```
+
+Let's remember to make sure the food is not eaten already, and add it to our statement.
+
+```
+function feed(food, animal) {
+  const animalDiet = animal.diet;
+  const foodType = food.type;
+  const canEat = animalDiet === 'omnivore'
+    || (animalDiet === 'carnivore' && foodType === 'meat')
+    || (animalDiet === 'herbivore' && (foodType === 'fruit' || foodType === 'vegetable'));
+
+  if (canEat && !food.eaten) {
+    // eat food
+  } else {
+    return false; // we know the animal cannot eat the food here in this else block.
+  }
+}
+```
+
+Now we implement the actual eating of the food, which is just simple setting of properties, and returning the boolean `true`.
+
+```
+function feed(food, animal) {
+  const animalDiet = animal.diet;
+  const foodType = food.type;
+  const canEat = animalDiet === 'omnivore'
+    || (animalDiet === 'carnivore' && foodType === 'meat')
+    || (animalDiet === 'herbivore' && (foodType === 'fruit' || foodType === 'vegetable'));
+
+  if (canEat && !food.eaten) {
+    food.eaten = true;
+    animal.isHungry = false;
+
+    return true;
+  } else {
+    return false; // we know the animal cannot eat the food here in this else block.
+  }
+}
+```
+
+We are missing just one step - updating our record book. The tricky part is that record books have different objects for eat different type of food. The problem is simple once we store the correct desired object from our recordBook once we read our food type. After we are pointing to the correct record, it's simple to update it while feeding our food.
+
+```
+function feed(food, animal) {
+  const animalDiet = animal.diet;
+  const foodType = food.type;
+  const canEat = animalDiet === 'omnivore'
+    || (animalDiet === 'carnivore' && foodType === 'meat')
+    || (animalDiet === 'herbivore' && (foodType === 'fruit' || foodType === 'vegetable'));
+
+  let currentRecord; // initially unset
+  // set as the recordBook for our desired type
+  if (foodType === 'meat') {
+    currentRecord = recordBook.meats;
+  }  else if (foodType === 'fruits') {
+    currentRecord = recordBook.fruits;
+  } else {
+    currentRecord = recordBook.vegetable;
+  }
+
+  if (canEat && !food.eaten) {
+    // eat the food
+    food.eaten = true;
+    animal.isHungry = false;
+    // update records
+    currentRecord.totalEaten++;
+    currentRecord.totalPrice += food.price;
+
+    return true;
+  } else {
+    return false; // we know the animal cannot eat the food here in this else block.
+  }
+}
+```
+
+
