@@ -9,6 +9,8 @@ As we are learning javascript, we will initially focus on javascript data struct
 - [Arrays](#Arrays)
   *[Declaring and Setting Values](#declaring-and-setting-values)
   *[Javascript Array Properties](#javascript-array-properties)
+  *[Adding and removing items from Arrays](#adding-and-removing-items-from-arrays)
+  *[Traversing Arrays](#traversing-arrays)
 
 
 ### Arrays
@@ -67,6 +69,10 @@ let lastItemInArray = catDogArray[catDogArray.length - 1]; // 'cat'
 
 Notice how length is 2 - it is NOT a zero-based counting. This is because an empty array, when there are no elements, would have a length of 0.
 
+Whenever you forget what properties are there, visit [MDN's documentation on Arrays for a well organized, complete list.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
+#### Adding and removing items from Arrays
+
 Arrays have many attached properties that allows you to mutate and traverse the elements. Here are some examples the most common ones below.
 
 ```
@@ -105,4 +111,80 @@ animalArray.splice(1, 0);
 // above code does nothing as we remove 0 items from index 1
 ```
 
-Whenever you forget what properties are there, visit [MDN's documentation on Arrays for a well organized, complete list.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+Again, whenever you forget what properties are there, visit [MDN's documentation on Arrays for a well organized, complete list.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+
+#### Traversing Arrays
+
+Arrays have a built-in function property that allows the developer to traverse the array in different ways. So far, we've learned to traverse arrays using `for` loops. Let's start off built-in array traversal methods with the oft used method `forEach`.
+
+**forEach()**
+
+```
+const animalArr = [{ type: 'dog', name: 'Roy' }, { type: 'cat', name: 'Arya'}];
+
+animalArr.forEach(function(element, index) {
+  console.log('The animal type and name in array index position ', index)
+  console.log(element.type);
+  console.log(element.name);
+});
+```
+
+`forEach` is a function property attached to Arrays that executes a given function once for each array element, in order. The given function will be passed the current element in the first parameter and the current index in the second.
+
+**When to use forEach vs. for loop**
+
+You are able to solve same problems that require traversal using `for` or `forEach`. So when would you use one or the other?
+
+The most functional difference is that `forEach` cannot use the `break` statement. If you call `forEach` on an Array, it is guaranteed to go through every item in the list. So in problems like finding a certain item in an Array, you would want to use `for` loop so you can break out earlier.
+
+You may prefer `forEach` for cases where you do not need a `break` because it is simply easier to read. Compare the two iterations below.
+
+```
+const animalArr = [{ type: 'dog', name: 'Roy' }, { type: 'cat', name: 'Arya'}];
+
+// using for loop to edit the animal array
+for (let i = 0; i < animalArr.length; i++) {
+  let currentAnimal = animalArr[i]
+  currentAnimal.mood = 'happy'
+  console.log('animal at index ' + i + ' is now happy!')
+}
+
+// using forEach
+animalArr.forEach(function(currentAnimal, index) {
+  currentAnimal.mood = 'happy'
+  console.log('animal at index ' + index + ' is now happy!')
+})
+```
+
+Mostly due to not having to manage `i` separately, and how much more human-friendly `animalArr.forEach` is to read. Picking one traversal over the other is mostly developer preference!
+
+**map()**
+
+`map` is a function in Arrays that creates a **new array** resulting from the `return` of a given function on every element in the array.
+
+```
+const numArr = [1,2,3,4];
+
+let doubledArr = numArr.map(function(currentElement, index) {
+  return currentElement * 2
+});
+
+// doubledArr is [2,4,6,8]
+```
+
+`map` should be used anytime you want to create a **new** Array from another. If you just want to do some effect on the same Array, you should not use `map`. Vice versa, if you find yourself using `forEach` to create a new Array, use `map` instead.
+
+Here's another example of map that creates an array of objects from array of numbers.
+
+```
+const numArr = [1,2,3];
+
+let newArr = numArr.map(function(currElement, index) {
+  return {
+    index: index,
+    value: currElement,
+    valueDoubled: currElement * 2
+  };
+});
+// newArr is now [{index: 0, value: 1, valueDoubled: 2}, {index: 1, value: 2, valueDoubled: 4}, {index: 2, value: 3, valueDoubled: 6}]
+```
