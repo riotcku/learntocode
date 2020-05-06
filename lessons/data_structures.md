@@ -188,3 +188,19 @@ let newArr = numArr.map(function(currElement, index) {
 });
 // newArr is now [{index: 0, value: 1, valueDoubled: 2}, {index: 1, value: 2, valueDoubled: 4}, {index: 2, value: 3, valueDoubled: 6}]
 ```
+
+Above example takes a simpler array and converts it to a more complex one. Let's look at an opposite example, where a more complex arrays are reduced to a simpler one.
+
+```
+const animalArr = [{ type: 'dog', name: 'Roy' }, { type: 'cat', name: 'Arya'}]
+
+const animalNames = animalArr.map(function(animal) {
+  return animal.name
+})
+// animalNames is ['Roy', 'Arya']
+
+const animalTypes = animalArr.map(function(animal) {
+  return animal.type
+})
+// animalTypes is ['dog', 'cat']
+```
