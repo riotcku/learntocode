@@ -1571,4 +1571,63 @@ function feed(food, animal) {
 }
 ```
 
+#### Arrow Functions
+
+Arrow function is another syntax for creating a function, except with one key difference - it does not create its own unique scope! Rather, it just inherits the parent's scope as its own. Here is an example.
+
+```
+let someVar = 'Hi! I am someVar.';
+
+function foo() {
+  console.log(someVar);
+}
+
+const bar = () => {
+  console.log(someVar);
+}
+
+foo(); // outputs undefined
+bar(); // outputs 'Hi! I am someVar.'
+```
+
+Arrow function allow you to return an expression without `{}`. If `{}` is omitted, evaluated expression to the right of `=>` will be returned. Here's an example, with its equal regular function counterpart.
+
+```
+// regular function
+let isGreaterThanZero = function(number) {
+  return number > 0
+}
+
+// arrow function
+isGreaterThanZero = (number) => number > 0
+
+// above function is same as
+isGreaterThanZero = (number) => {
+  return number > 0
+}
+
+// when there is only one argument, arrow functions do not need ()
+isGreaterThanZero = number => number > 0
+```
+
+All three arrow function above do the exact same thing. As you can see, arrow functions allow you to write concise, syntactically simple functions. It's especially useful when defining a function as a parameter for Array methods, as shown below.
+
+```
+let numArr = [1, 2, 3]
+
+// using regular function
+let doubledArr = numArr.map(function(element) {
+  return element * 2
+});
+
+// using arrow function
+let doubledArr2 = numArr.map(element => element * 2);
+
+// above function is same as `(element) => { return element * 2 }` - its just more concise
+```
+Both above functions do exactly the same thing! When you just need a simple function with a one-liner return, arrow functions are very useful.
+
+When should you use arrow functions over regular functions? Well, pretty much every time except when you need the `arguments` object which is not provided to the arrow function. We didn't learn this yet, so don't worry - its very rare you would want this. Also, maybe you'd like to keep a function's scope to itself.
+
+One thing to note, however - arrow functions are, just like `let` and `const`, from the 6th edition of javascript engine, which means they are not available in old browsers like Internet Explorer. I dream of a world where you don't have to worry about this, but just know some javascript stuff won't work in older browsers.
 

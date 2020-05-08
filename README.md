@@ -12,7 +12,8 @@ Excited to have you.
 - [Format](#format)
 - [Resources](#resources)
 - [Lessons](#lessons)
-  * [Lesson One: basics](#lesson-1-basics)
+  * [Chapter One: Basics](#chapter-1-basics)
+  * [Chapter Two: Data structures](#chapter-2-data-structures)
 
 ### Introduction
 
@@ -42,4 +43,9 @@ Do not hesistate to ask me in the `#questions` channel of our discord and I'll g
 
 Lessons will be [organized in this repository, in lessons/ directory.](https://github.com/riotcku/learntocode/blob/master/lessons/)
 
-### Lesson 1: [Basics](https://github.com/riotcku/learntocode/blob/master/lessons/basics.md)
+#### Meta-Lesson: [Best Practices](https://github.com/riotcku/learntocode/blob/master/lessons/best_practices.md)
+
+### Chapter 1: [Basics](https://github.com/riotcku/learntocode/blob/master/lessons/basics.md)
+
+### Chapter 2: [Data structures](https://github.com/riotcku/learntocode/blob/master/lessons/data_structures.md)
+
