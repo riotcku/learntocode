@@ -14,7 +14,7 @@ In this new directory, using any text editor you like (you can use VSCode or Not
 
 Type `git add hello.txt` into the command line. This is telling git to add the new file for a commit.
 
-Type `git commit -m 'This is my very first commit!'` to the command line. This `commit`s the new file to git.
+Type `git commit -m "This is my very first commit!"` to the command line. This `commit`s the new file to git.
 
 Go to [github.com](https://github.com/). On the top right, there is a `+` button that shows a menu for a `New repository`. After clicking the button, Github will prompt for name and description of the repo. Fill in the name as `hello_world` and whatever description you'd like, and click Create repository.
 
