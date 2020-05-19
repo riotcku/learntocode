@@ -7,10 +7,10 @@ As we are learning javascript, we will initially focus on javascript data struct
 ### Table of contents
 
 - [Arrays](#Arrays)
-  *[Declaring and Setting Values](#declaring-and-setting-values)
-  *[Javascript Array Properties](#javascript-array-properties)
-  *[Adding and removing items from Arrays](#adding-and-removing-items-from-arrays)
-  *[Traversing Arrays](#traversing-arrays)
+  * [Declaring and Setting Values](#declaring-and-setting-values)
+  * [Javascript Array Properties](#javascript-array-properties)
+  * [Adding and removing items from Arrays](#adding-and-removing-items-from-arrays)
+  * [Traversing Arrays](#traversing-arrays)
 
 
 ### Arrays
