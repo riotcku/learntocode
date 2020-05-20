@@ -1,4 +1,4 @@
-# Github Homework
+# Github Homework 2
 
 This homework assignment asks the student to make a pull request.
 

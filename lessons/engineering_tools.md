@@ -66,19 +66,21 @@ Within this branch, further edits and commits to your repository state will only
 
 Let's make a simple change to this repository to commit. Create a directory named `js` on your directory. You can do this using the File Explorer or just directly in the terminal using `mkdir js`.
 
+After, create another simple file - let's try making a markdown file. Using a text editor of any kind, create a file named `hello_world.md` **in the new directory you created**. You can write anything you want in this document, it's just for practice purposes.
+
 Now, we've changed the state of our repository. Let's check out what git thinks we've done using the command
 
 `git status`
 
-Your terminal should display that we've created a new directory. Now, let's stage this change for a commit.
+Your terminal should display that we've created a new directory and added a file. Now, in the terminal at the directory that holds our repo, let's stage this change for a commit.
 
 `git add js`
 
-When you type this command above, it will stage the new `js` directory for commit. If we named the directory `my_new_fancy_dir`, we would type in `git add my_new_fancy_dir`. You could also type in `git add .` to add every change in the current directory.
+When you type this command above, it will stage the new `js` directory, and all its new files, for commit. If we named the directory `my_new_fancy_dir`, we would type in `git add my_new_fancy_dir`. You could also type in `git add .` to add every change in the current directory.
 
 Now, let's commit the change we've staged. Type
 
-`git commit -m 'added a new js directory'`
+`git commit -m 'added a new js directory and markdown file'`
 
 the `-m '<your commit message>'` part attaches a message to your commit. This is important! Imagine that other developers, and importantly YOURSELF, will want to read this commit message and know exactly what kind of changes were done here. Nice commit messages are descriptive of the changes and, ideally, searchable later using the website as project tends to have hundreds, or thousands, of commits.
 
@@ -114,5 +116,5 @@ What happened here? There's no `js` directory. This is because your local change
 
 This is saying to pull the state from `origin`'s branch called `master` into your current branch. If you were in another branch (such as your other branch you created) it would pull the `master` branch upstream into that branch.
 
-You should see the new `js` directory pop up - congratulations, you've successfully gone through the process of pull request and merging!
+You should see the new `js` directory pop up with your markdown file - congratulations, you've successfully gone through the process of pull request and merging!
 
