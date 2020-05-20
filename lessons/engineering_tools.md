@@ -116,5 +116,7 @@ What happened here? There's no `js` directory. This is because your local change
 
 This is saying to pull the state from `origin`'s branch called `master` into your current branch. If you were in another branch (such as your other branch you created) it would pull the `master` branch upstream into that branch.
 
+If you see a screen pop up with changes (happens when there was new code your local git was not aware of) and want to leave the screen after review, type in `wq` and press Enter. That stands for `write` and `quit` together.
+
 You should see the new `js` directory pop up with your markdown file - congratulations, you've successfully gone through the process of pull request and merging!
 
