@@ -7,6 +7,8 @@ As being a developer involves writing code, many developers built tools to make 
 - [git and github](#github)
   * [branching](#branching)
   * [pushing, pulling, pull requests](#pushing-pulling-pull-requests)
+- [npm](#npm)
+
 
 #### git and github
 
@@ -119,4 +121,38 @@ This is saying to pull the state from `origin`'s branch called `master` into you
 If you see a screen pop up with changes (happens when there was new code your local git was not aware of) and want to leave the screen after review, type in `wq` and press Enter. That stands for `write` and `quit` together.
 
 You should see the new `js` directory pop up with your markdown file - congratulations, you've successfully gone through the process of pull request and merging!
+
+### NPM
+
+NPM stands for **Node Package Manager**, a tool where the developer can download packages created by other devs using the `node` command tool. Using open-source projects like this is cornerstone of the current development landscape. With one command line, you are able to download any fleshed out project into your repo.
+
+Before starting out, make sure you have `node` installed. Type in `npm --version` in your command line to ensure you have a working version. If that command failed, [download Node here before continuing.](https://nodejs.org/en/download/)
+
+#### npm init
+
+every single npm project has a file named `package.json` that keeps track of metadata of your project. Let's try creating one - first, create and navigate to a new directory with the name of your choice. For the sake of this documentation, U will call my project 'SimpleReactApp'. So we create a directory called `SimpleReactApp` and nagivate to it.
+
+Once in the directory, initialize by typing in `npm init` the command prompt. It'll prompt you for some data, while offering the suggested in a parenthesis. Name/version it whatever you want or just keep pressing `Enter` til you have a file named `package.json` at the directory. hint - if you wanna not press enter a bunch next time, just type in `npm init --yes` and it'll just use all-default values.
+
+When you inspect the `package.json`, you will find it is a json file with the data you just typed (or didn't) in the command line.
+
+Of course, the details of package.json is important - but it's not something we need to worry about now!
+
+#### npm install
+
+The juicy part of `npm` is the ability to install any package. We're going to start off with one of my favorites, a quick-and-easy local server setter upper called [http-server](https://github.com/http-party/http-server#readme).
+
+To install, simply type in `npm install http-server`. You should see stuff on your terminal, then successfully install your first package!
+
+Where did it get installed? In the local folder called `node_modules`. Under that folder is where packages downloaded via `npm` gets organized. It's going to become quickly massive, as one library almost always has many dependencies.
+
+You will also see that `package.json` now has a new `dependencies` key/value field with `http-server`. `package.json` is a growing meta-data document that describes the dependencies and scripts of your project.
+
+Let's try using `http-server` to see it in action. This package changes ur local directory to a web server, which serves any local file up to browsers that point at it.
+
+Create a new file called `index.html` and type in the phrase `Hello, world!` in plaintext in your file. After, type in
+
+`http-server .`
+
+in the terminal. It should tell you which local address the server is spinning at, something like 'http://127.0.0.1:8080'. Navigate to this address one your browser - and there it is, your first open source package used to serve a file.
 

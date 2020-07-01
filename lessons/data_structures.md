@@ -204,3 +204,11 @@ const animalTypes = animalArr.map(function(animal) {
 })
 // animalTypes is ['dog', 'cat']
 ```
+
+**reduce**
+
+`reduce` is a function where every element in the list is reduced to a single value. In each step, the value is transformed using given function and passed to the next.
+
+```
+
+```
