@@ -1,3 +1,8 @@
+# An Update, 2 years later.
+
+It had its ups and downs, but I'm massively proud to say our little group coding class pushed two students to get a gig as a software engineer.
+Nothing has made me happier since Covid. Congratulations to Ronalyssa and Carter.
+
 # Learn to code from home - sponsored by corona-chan
 
 Welcome to my coding class. This repository will contain our class materials such as lessons, homework, projects, etc.
